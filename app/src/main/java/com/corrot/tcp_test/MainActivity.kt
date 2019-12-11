@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.corrot.tcp_test.Constants.Companion.CONNECTION_STATUS_CONNECTED
 import com.corrot.tcp_test.Constants.Companion.CONNECTION_STATUS_CONNECTING
 import com.corrot.tcp_test.Constants.Companion.CONNECTION_STATUS_FAILED
@@ -54,11 +55,13 @@ class MainActivity : AppCompatActivity() {
                     progressBar.visibility = View.VISIBLE
                     shadowView.visibility = View.VISIBLE
                     retryButton.visibility = View.GONE
+                    dialog?.dismiss()
                 }
                 CONNECTION_STATUS_FAILED -> {
                     connectionStatusTextVIew.setText(R.string.connection_status_failed)
                     progressBar.visibility = View.GONE
                     shadowView.visibility = View.VISIBLE
+                    dialog?.dismiss()
 
                     if (window.decorView.isShown && !isFinishing)
                         dialog = MaterialDialog(this).show {
@@ -68,9 +71,11 @@ class MainActivity : AppCompatActivity() {
                                 mainViewModel.connect()
                             }
                             negativeButton(text = "Cancel") {
+                                dismiss()
+                            }
+                            onDismiss {
                                 retryButton.visibility = View.VISIBLE
                                 shadowView.visibility = View.GONE
-                                dismiss()
                             }
                         }
                 }
