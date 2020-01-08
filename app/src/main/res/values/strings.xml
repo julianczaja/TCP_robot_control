@@ -3,4 +3,17 @@
     <string name="connection_status_connected">Connected</string>
     <string name="connection_status_connecting">Connecting…</string>
     <string name="connection_status_failed">Connection failed</string>
+
+    <string-array name="addresses_array">
+        <item>192.168.137.1</item>
+        <item>192.168.2.30</item>
+        <item>192.168.2.31</item>
+        <item>192.168.2.32</item>
+        <item>192.168.2.33</item>
+        <item>192.168.2.34</item>
+        <item>192.168.2.35</item>
+        <item>192.168.2.36</item>
+        <item>192.168.2.37</item>
+    </string-array>
+
 </resources>

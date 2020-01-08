@@ -4,10 +4,11 @@ import android.os.NetworkOnMainThreadException
 import android.util.Log
 import com.corrot.tcp_test.Constants.Companion.CONNECTION_STATUS_CONNECTED
 import com.corrot.tcp_test.Constants.Companion.CONNECTION_STATUS_CONNECTING
-import com.corrot.tcp_test.Constants.Companion.CONNECTION_STATUS_FAILED
-import com.corrot.tcp_test.Constants.Companion.IP
+import com.corrot.tcp_test.Constants.Companion.CONNECTION_STATUS_DISCONNECTED
+import com.corrot.tcp_test.Constants.Companion.DEFAULT_IP
 import com.corrot.tcp_test.Constants.Companion.PORT
 import com.corrot.tcp_test.Constants.Companion.TIMEOUT_TIME
+import java.io.IOException
 import java.io.InputStream
 import java.io.PrintWriter
 import java.net.InetSocketAddress
@@ -40,12 +41,12 @@ object SocketRepository {
 
 
     init {
-        Log.d(TAG, "Instantiating SocketRepository...")
+        Log.d(TAG, "Instantiating SocketRepository")
         // Initialize socket
         socket = Socket()
 
         // Create connection thread with 'connect' runnable
-        connectThread = Thread(getConnectRunnable())
+        connectThread = Thread(getConnectRunnable(DEFAULT_IP))
 
         // Start looper thread
         looperThread = LooperThread()
@@ -55,17 +56,18 @@ object SocketRepository {
         taskerThread = thread(start = true) { startTasking() }
     }
 
+
     /**
      * Function that creates TCP socket, starts looperThread and taskerThread
      */
-    private fun getConnectRunnable(): Runnable {
+    private fun getConnectRunnable(address: String): Runnable {
         return Runnable {
             setConnectionStatus(CONNECTION_STATUS_CONNECTING)
             try {
-                Log.d(TAG, "Connecting to: $IP...")
+                Log.d(TAG, "Connecting to: $address (port $PORT)...")
                 // Initialize socket
                 socket = Socket()
-                socket.connect(InetSocketAddress(IP, PORT), TIMEOUT_TIME)
+                socket.connect(InetSocketAddress(address, PORT), TIMEOUT_TIME)
 
                 if (socket.isConnected) {
                     setConnectionStatus(CONNECTION_STATUS_CONNECTED)
@@ -73,11 +75,11 @@ object SocketRepository {
                     inputStream = socket.getInputStream()
                     Log.d(TAG, "Connected successfully!")
                 } else {
-                    setConnectionStatus(CONNECTION_STATUS_FAILED)
+                    setConnectionStatus(CONNECTION_STATUS_DISCONNECTED)
                     Log.e(TAG, "Connection failed!")
                 }
             } catch (e: Exception) {
-                setConnectionStatus(CONNECTION_STATUS_FAILED)
+                setConnectionStatus(CONNECTION_STATUS_DISCONNECTED)
                 when (e) {
                     is NetworkOnMainThreadException ->
                         Log.e(TAG, "You can't connect TCP on main thread!")
@@ -88,20 +90,46 @@ object SocketRepository {
         }
     }
 
+
     /**
-     * Function that starts connect runnable
+     * Function that starts connect runnable on new thread
      */
-    fun connect() {
+    fun connect(address: String) {
         if (!connectThread.isAlive) {
-            connectThread.run()
+            thread(start = true) {
+                run {
+                    connectThread = Thread(getConnectRunnable(address))
+                    connectThread.run()
+                }
+            }
+        } else {
+            Log.e(TAG, "Already connecting to socket!")
         }
     }
 
+
+    /**
+     * Function that close streams and socket on new thread
+     */
     fun disconnect() {
-        setConnectionStatus(CONNECTION_STATUS_FAILED)
-//        if (socket.isConnected) {
-//            socket.close()
-//        }
+        Log.d(TAG, "Disconnecting socket...")
+        if (socket.isConnected && !socket.isClosed && !connectThread.isAlive) {
+            thread(start = true) {
+                run {
+                    try {
+                        inputStream.close()
+                        writer.close()
+                        socket.close()
+                        setConnectionStatus(CONNECTION_STATUS_DISCONNECTED)
+                        Log.d(TAG, "Socket disconnected successfully!")
+                    } catch (e: IOException) {
+                        Log.e(TAG, "Error during closing socket: ${e.message}")
+                    }
+                }
+            }
+        } else {
+            Log.d(TAG, "Socket already disconnected")
+        }
     }
 
     fun registerListener(listener: InputListener) {
@@ -109,41 +137,33 @@ object SocketRepository {
     }
 
     private fun setConnectionStatus(status: Int) {
+        Log.d(TAG, "NEW CONNECTION STATUS = $status")
         connectionStatus = status
         listener?.onConnectionStatusChange(status)
     }
+
 
     /**
      * Function that posts runnables to looperThread handler every _ millis
      */
     private fun startTasking() {
-        Log.d(TAG, "Starting writing...")
+        Log.d(TAG, "Starting tasking")
         while (true) {
 
             if (socket.isClosed && connectionStatus == CONNECTION_STATUS_CONNECTED) {
-                setConnectionStatus(CONNECTION_STATUS_FAILED)
+                setConnectionStatus(CONNECTION_STATUS_DISCONNECTED)
             }
 
-            when (connectionStatus) {
-                CONNECTION_STATUS_CONNECTED -> {
-                    // Check if connection failed
-                    looperThread.mHandler?.post {
-                        if (writer.checkError()) {
-                            setConnectionStatus(CONNECTION_STATUS_FAILED)
-                        }
-                    }
-                    // Write output frame
-                    looperThread.mHandler?.post(WriteRunnable(writer, sb.toString()))
-                    // Read input frame
-                    looperThread.mHandler?.post(ReadRunnable(inputStream, listener))
+            if (connectionStatus == CONNECTION_STATUS_CONNECTED) {
+                // Check if connection failed
+                looperThread.mHandler?.post {
+                    if (writer.checkError())
+                        setConnectionStatus(CONNECTION_STATUS_DISCONNECTED)
                 }
-//                CONNECTION_STATUS_FAILED -> { // TODO: uncomment to activate auto-connect
-//                    thread(start = true) {
-//                        run {
-//                            connect()
-//                        }
-//                    }
-//                }
+                // Write output frame
+                looperThread.mHandler?.post(WriteRunnable(writer, sb.toString()))
+                // Read input frame
+                looperThread.mHandler?.post(ReadRunnable(inputStream, listener))
             }
             Thread.sleep(Constants.SAMPLE_TIME)
         }

@@ -3,7 +3,7 @@
     <color name="colorPrimary">#455a64</color>
     <color name="colorPrimaryVariant">#718792</color>
     <color name="colorPrimaryDark">#313F46</color>
-    <color name="colorOnPrimary">#ffffff</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
 
     <color name="colorSecondary">#ffca28</color>
     <color name="colorSecondaryVariant">#fffd61</color>
@@ -21,4 +21,5 @@
     <color name="transparent">#00000000</color>
     <color name="backgroundTransparent">#80000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="barBackground">#F4F4F4</color>
 </resources>

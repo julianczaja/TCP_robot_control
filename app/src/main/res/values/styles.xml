@@ -20,6 +20,11 @@
         <item name="colorOnError">@color/colorOnError</item>
     </style>
 
+    <!--Style for Splash Screen-->
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name ="android:windowBackground"> @drawable/splash_screen_background</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

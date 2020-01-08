@@ -4,7 +4,229 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/barBackground"
     tools:context=".MainActivity">
+
+    <ImageButton
+        android:id="@+id/ib_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_notify_sync" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_top"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_section_connection">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spinner_ip"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tv_connection"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Connection status" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_middle"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_section_input">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.skydoves.progressview.ProgressView
+                android:id="@+id/rcpb_1"
+                android:layout_width="40dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_battery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/rcpb_2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:progressView_autoAnimate="false"
+                app:progressView_colorBackground="@color/barBackground"
+                app:progressView_colorProgress="@color/colorPrimary"
+                app:progressView_max="100"
+                app:progressView_min="1"
+                app:progressView_orientation="vertical"
+                app:progressView_progress="10" />
+
+            <com.skydoves.progressview.ProgressView
+                android:id="@+id/rcpb_2"
+                android:layout_width="40dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_battery"
+                app:layout_constraintEnd_toStartOf="@+id/rcpb_1"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/rcpb_3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:progressView_autoAnimate="false"
+                app:progressView_colorBackground="@color/barBackground"
+                app:progressView_colorProgress="@color/colorPrimary"
+                app:progressView_max="100"
+                app:progressView_min="1"
+                app:progressView_orientation="vertical"
+                app:progressView_progress="10" />
+
+            <com.skydoves.progressview.ProgressView
+                android:id="@+id/rcpb_3"
+                android:layout_width="40dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_battery"
+                app:layout_constraintEnd_toStartOf="@+id/rcpb_2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/rcpb_4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:progressView_autoAnimate="false"
+                app:progressView_colorBackground="@color/barBackground"
+                app:progressView_colorProgress="@color/colorPrimary"
+                app:progressView_max="100"
+                app:progressView_min="1"
+                app:progressView_orientation="vertical"
+                app:progressView_progress="10" />
+
+            <com.skydoves.progressview.ProgressView
+                android:id="@+id/rcpb_4"
+                android:layout_width="40dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_battery"
+                app:layout_constraintEnd_toStartOf="@+id/rcpb_3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/rcpb_5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:progressView_autoAnimate="false"
+                app:progressView_colorBackground="@color/barBackground"
+                app:progressView_colorProgress="@color/colorPrimary"
+                app:progressView_max="100"
+                app:progressView_min="1"
+                app:progressView_orientation="vertical"
+                app:progressView_progress="10" />
+
+            <com.skydoves.progressview.ProgressView
+                android:id="@+id/rcpb_5"
+                android:layout_width="40dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_battery"
+                app:layout_constraintEnd_toStartOf="@+id/rcpb_4"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:progressView_autoAnimate="false"
+                app:progressView_colorBackground="@color/barBackground"
+                app:progressView_colorProgress="@color/colorPrimary"
+                app:progressView_max="100"
+                app:progressView_min="1"
+                app:progressView_orientation="vertical"
+                app:progressView_progress="10" />
+
+            <TextView
+                android:id="@+id/tv_battery"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Battery: 100%"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_status_code"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Status code: 0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/rcpb_3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_section_output"
+        app:layout_constraintTop_toBottomOf="@+id/tv_section_output">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <io.github.controlwear.virtual.joystick.android.JoystickView
+                android:id="@+id/joystick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                app:JV_backgroundColor="?attr/colorPrimary"
+                app:JV_borderColor="?attr/colorPrimaryDark"
+                app:JV_borderWidth="4dp"
+                app:JV_buttonColor="?attr/colorAccent"
+                app:JV_buttonSizeRatio="10%"
+                app:JV_fixedCenter="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <View
         android:id="@+id/v_shadow"
@@ -28,128 +250,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/rcpb_1"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_label"
-        app:rcBackgroundColor="?attr/colorPrimary"
-        app:rcMax="100"
-        app:rcProgressColor="?attr/colorPrimaryVariant"
-        app:rcRadius="24dp" />
-
-
-    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/rcpb_2"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rcpb_1"
-        app:rcBackgroundColor="?attr/colorPrimary"
-        app:rcMax="100"
-        app:rcProgressColor="?attr/colorPrimaryVariant"
-        app:rcRadius="24dp" />
-
-    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/rcpb_3"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rcpb_2"
-        app:rcBackgroundColor="?attr/colorPrimary"
-        app:rcMax="100"
-        app:rcProgressColor="?attr/colorPrimaryVariant"
-        app:rcRadius="24dp" />
-
-    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/rcpb_4"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rcpb_3"
-        app:rcBackgroundColor="?attr/colorPrimary"
-        app:rcMax="100"
-        app:rcProgressColor="?attr/colorPrimaryVariant"
-        app:rcRadius="24dp" />
-
-
-    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/rcpb_5"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rcpb_4"
-        app:rcBackgroundColor="?attr/colorPrimary"
-        app:rcMax="100"
-        app:rcProgressColor="?attr/colorPrimaryVariant"
-        app:rcRadius="24dp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_led"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+    <TextView
+        android:id="@+id/tv_section_connection"
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:textSize="14dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="LED"
-        app:layout_constraintBottom_toBottomOf="@+id/joystick"
-        app:layout_constraintEnd_toStartOf="@+id/joystick"
-        app:layout_constraintTop_toTopOf="@+id/joystick" />
-
-    <io.github.controlwear.virtual.joystick.android.JoystickView
-        android:id="@+id/joystick"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:JV_backgroundColor="?attr/colorPrimary"
-        app:JV_borderColor="?attr/colorPrimaryDark"
-        app:JV_borderWidth="4dp"
-        app:JV_buttonColor="?attr/colorAccent"
-        app:JV_buttonSizeRatio="15%"
-        app:JV_fixedCenter="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="16dp"
+        android:text="Connection "
+        app:layout_constraintStart_toStartOf="@+id/card_top"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_label"
-        style="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:layout_width="match_parent"
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:textSize="14dp"
+        android:id="@+id/tv_section_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Input "
+        app:layout_constraintStart_toStartOf="@+id/card_middle"
+        app:layout_constraintTop_toBottomOf="@+id/card_top" />
+
+    <TextView
+        android:id="@+id/tv_section_output"
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Robot control"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Output"
+        android:textSize="14dp"
+        app:layout_constraintStart_toEndOf="@+id/card_middle"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_connection"
-        style="@style/TextAppearance.MaterialComponents.Caption"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="end"
-        android:text="Connection status"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/ib_retry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/tv_connection"
-        app:layout_constraintTop_toBottomOf="@+id/tv_connection"
-        app:srcCompat="@android:drawable/stat_notify_sync" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
