@@ -7,15 +7,6 @@
     android:background="@color/barBackground"
     tools:context=".MainActivity">
 
-    <ImageButton
-        android:id="@+id/ib_retry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/stat_notify_sync" />
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_top"
         android:layout_width="300dp"
@@ -25,19 +16,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_section_connection">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <Spinner
                 android:id="@+id/spinner_ip"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp" />
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_connection"
+                app:layout_constraintEnd_toStartOf="@+id/btn_connection"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_connection" />
+
+            <Button
+                android:id="@+id/btn_connection"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/connection_action_connect"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_connection"
@@ -45,9 +49,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Connection status" />
+                android:text="Connection status"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinner_ip" />
 
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -174,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Battery: 100%"
+                android:text="Battery: ___%"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -208,10 +216,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <Spinner
+                android:id="@+id/spinner_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <io.github.controlwear.virtual.joystick.android.JoystickView
                 android:id="@+id/joystick"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:padding="0dp"
                 app:JV_backgroundColor="?attr/colorPrimary"
                 app:JV_borderColor="?attr/colorPrimaryDark"
@@ -222,7 +237,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/spinner_mode" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -233,7 +248,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundTransparent"
+        android:clickable="true"
         android:elevation="10dp"
+        android:focusable="true"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -253,22 +270,22 @@
     <TextView
         android:id="@+id/tv_section_connection"
         style="@style/TextAppearance.MaterialComponents.Overline"
-        android:textSize="14dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Connection "
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/card_top"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        style="@style/TextAppearance.MaterialComponents.Overline"
-        android:textSize="14dp"
         android:id="@+id/tv_section_input"
+        style="@style/TextAppearance.MaterialComponents.Overline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Input "
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/card_middle"
         app:layout_constraintTop_toBottomOf="@+id/card_top" />
 
@@ -280,7 +297,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Output"
-        android:textSize="14dp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/card_middle"
         app:layout_constraintTop_toTopOf="parent" />
 

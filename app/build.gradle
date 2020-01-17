@@ -50,9 +50,6 @@ dependencies {
     // Material Components
     implementation 'com.google.android.material:material:1.2.0-alpha03'
 
-    // RoundCornerProgressBar (https://github.com/akexorcist/Android-RoundCornerProgressBar)
-    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
-
     // Material Dialogs (https://github.com/afollestad/material-dialogs#core-tutorial-and-samples)
     implementation 'com.afollestad.material-dialogs:core:3.1.1'
     implementation 'com.afollestad.material-dialogs:input:3.1.1'

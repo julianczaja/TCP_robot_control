@@ -3,6 +3,10 @@
     <string name="connection_status_connected">Connected</string>
     <string name="connection_status_connecting">Connecting…</string>
     <string name="connection_status_failed">Connection failed</string>
+    <string name="connection_status_not_connected">Not connected</string>
+
+    <string name="connection_action_connect">Connect</string>
+    <string name="connection_action_disconnect">Disconnect</string>
 
     <string-array name="addresses_array">
         <item>192.168.137.1</item>
@@ -14,6 +18,12 @@
         <item>192.168.2.35</item>
         <item>192.168.2.36</item>
         <item>192.168.2.37</item>
+    </string-array>
+
+    <string-array name="modes_array">
+        <item>Normal</item>
+        <item>Slow</item>
+        <item>Race</item>
     </string-array>
 
 </resources>
